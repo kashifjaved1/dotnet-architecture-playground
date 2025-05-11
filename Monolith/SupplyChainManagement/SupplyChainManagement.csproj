@@ -7,13 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="src\Api2\**" />
-	  <Content Remove="src\Api2\**" />
-	  <EmbeddedResource Remove="src\Api2\**" />
-	  <None Remove="src\Api2\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.15">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -21,10 +14,6 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.15" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.15" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="tests\" />
 	</ItemGroup>
 
 </Project>
