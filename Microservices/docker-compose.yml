@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"      # AMQP port
+      - "15672:15672"    # Management UI
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ordersdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  orderservice:
+    build:
+      context: ./src/OrderService
+      dockerfile: Dockerfile
+    container_name: orderservice
+    environment:
+      - ConnectionStrings__OrderDb=Host=postgres;Database=ordersdb;Username=postgres;Password=postgres
+      - RabbitMQ__Host=rabbitmq
+    depends_on:
+      - rabbitmq
+      - postgres
+    ports:
+      - "5001:80"
+
+  inventoryservice:
+    build:
+      context: ./src/InventoryService
+      dockerfile: Dockerfile
+    container_name: inventoryservice
+    environment:
+      - RabbitMQ__Host=rabbitmq
+    depends_on:
+      - rabbitmq
+    ports:
+      - "5002:80"
+
+  paymentservice:
+    build:
+      context: ./src/PaymentService
+      dockerfile: Dockerfile
+    container_name: paymentservice
+    environment:
+      - RabbitMQ__Host=rabbitmq
+    depends_on:
+      - rabbitmq
+    ports:
+      - "5003:80"
+
+  shippingservice:
+    build:
+      context: ./src/ShippingService
+      dockerfile: Dockerfile
+    container_name: shippingservice
+    environment:
+      - RabbitMQ__Host=rabbitmq
+    depends_on:
+      - rabbitmq
+    ports:
+      - "5004:80"
+
+volumes:
+  pgdata:
