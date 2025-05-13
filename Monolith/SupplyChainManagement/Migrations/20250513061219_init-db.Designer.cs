@@ -12,7 +12,7 @@ using SupplyChainManagement.src.Inventory.Infrastructure.Persistence;
 namespace SupplyChainManagement.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20250512073949_init-db")]
+    [Migration("20250513061219_init-db")]
     partial class initdb
     {
         /// <inheritdoc />
