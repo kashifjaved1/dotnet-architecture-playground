@@ -1,7 +1,7 @@
 using SupplyChainManagement.src.Core.Domain.Exceptions;
 using SupplyChainManagement.src.Inventory.Domain;
 
-namespace Inventory.Tests
+namespace SCM.Inventory.Tests.Domain
 {
     public class InventoryItemTests
     {
