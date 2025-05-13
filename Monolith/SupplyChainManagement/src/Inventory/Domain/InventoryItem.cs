@@ -1,4 +1,6 @@
-﻿using SupplyChainManagement.src.Core.Domain.Aggregates;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using SupplyChainManagement.src.Core.Domain.Aggregates;
 using SupplyChainManagement.src.Core.Domain.Events;
 using SupplyChainManagement.src.Core.Domain.Exceptions;
 
@@ -6,14 +8,15 @@ namespace SupplyChainManagement.src.Inventory.Domain
 {
     public class InventoryItem : AggregateRoot
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; }
-        public string Sku { get; }
+        public string Sku { get; } 
         public int AvailableQuantity { get; private set; }
         public int ReservedQuantity { get; private set; }
 
-        public InventoryItem(Guid id, string sku, int initialStock)
+        public InventoryItem(string sku, int initialStock)
         {
-            Id = id;
             Sku = sku;
             AvailableQuantity = initialStock;
         }
@@ -35,5 +38,7 @@ namespace SupplyChainManagement.src.Inventory.Domain
                 RaiseEvent(new LowStockEvent(Id, AvailableQuantity));
             }
         }
+
+        public InventoryItem() { }
     }
 }

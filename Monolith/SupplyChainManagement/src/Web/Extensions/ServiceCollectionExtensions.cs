@@ -10,17 +10,22 @@ namespace SupplyChainManagement.src.Web.Extensions
     {
         public static IServiceCollection ProjectSetup(this IServiceCollection services, IConfiguration configuration)
         {
-            // Add services
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
-            // Database
-            services.AddDbContext<InventoryDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Default")));
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("src/Web/appsettings.json")
+                .Build();
 
-            // Dependency Injection
-            services.AddScoped<IInventoryRepository, InventoryRepository>();
+            var connectionString = config.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<InventoryDbContext>(options =>
+                options.UseSqlServer(connectionString));
+
             services.AddSingleton<IEventBus, EventBus>();
+            services.AddScoped<IInventoryRepository, InventoryRepository>();
             services.AddScoped<InventoryService>();
 
             return services;

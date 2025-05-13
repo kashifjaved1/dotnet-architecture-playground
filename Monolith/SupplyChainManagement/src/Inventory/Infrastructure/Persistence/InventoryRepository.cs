@@ -12,8 +12,7 @@ namespace SupplyChainManagement.src.Inventory.Infrastructure.Persistence
             _context = context;
         }
 
-        public InventoryItem GetById(Guid id) =>
-            _context.InventoryItems.FirstOrDefault(i => i.Id == id);
+        public InventoryItem GetById(Guid id) => _context.InventoryItems.FirstOrDefault(i => i.Id == id);
 
         public void Save(InventoryItem item)
         {

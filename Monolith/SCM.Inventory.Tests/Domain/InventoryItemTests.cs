@@ -1,3 +1,6 @@
+using SupplyChainManagement.src.Core.Domain.Exceptions;
+using SupplyChainManagement.src.Inventory.Domain;
+
 namespace Inventory.Tests
 {
     public class InventoryItemTests
@@ -6,7 +9,7 @@ namespace Inventory.Tests
         public void AllocateStock_UpdatesQuantities()
         {
             // Arrange
-            var item = new InventoryItem(Guid.NewGuid(), "SKU-001", 100);
+            var item = new InventoryItem("SKU-001", 100);
 
             // Act
             item.AllocateStock(30);
@@ -19,7 +22,7 @@ namespace Inventory.Tests
         [Fact]
         public void AllocateStock_ThrowsWhenInsufficient()
         {
-            var item = new InventoryItem(Guid.NewGuid(), "SKU-002", 50);
+            var item = new InventoryItem("SKU-002", 50);
             Assert.Throws<InsufficientStockException>(() => item.AllocateStock(60));
         }
     }

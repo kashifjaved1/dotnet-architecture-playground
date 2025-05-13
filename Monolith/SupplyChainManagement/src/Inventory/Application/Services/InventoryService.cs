@@ -1,4 +1,6 @@
 ﻿using SupplyChainManagement.src.Core.Interfaces;
+using SupplyChainManagement.src.Inventory.Application.DTOs;
+using SupplyChainManagement.src.Inventory.Domain;
 
 namespace SupplyChainManagement.src.Inventory.Application.Services
 {
@@ -11,6 +13,13 @@ namespace SupplyChainManagement.src.Inventory.Application.Services
         {
             _repository = repository;
             _eventBus = eventBus;
+        }
+
+        public void SaveStock(AddInventoryItemRequest request)
+        {
+            InventoryItem item = new(request.Sku, request.AvailableQuantity);
+
+            _repository.Save(item);
         }
 
         public void AllocateStock(Guid itemId, int quantity)

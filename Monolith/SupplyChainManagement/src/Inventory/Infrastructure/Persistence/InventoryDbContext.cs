@@ -5,10 +5,10 @@ namespace SupplyChainManagement.src.Inventory.Infrastructure.Persistence
 {
     public class InventoryDbContext : DbContext
     {
-        public DbSet<InventoryItem> InventoryItems { get; set; }
-
         public InventoryDbContext(DbContextOptions<InventoryDbContext> options)
             : base(options) { }
+
+        public DbSet<InventoryItem>? InventoryItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
