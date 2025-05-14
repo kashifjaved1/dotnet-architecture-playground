@@ -1,0 +1,6 @@
+@SCM.Inventory_HostAddress = http://localhost:5101
+
+GET {{SCM.Inventory_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
