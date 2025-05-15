@@ -39,6 +39,7 @@ namespace SupplyChainManagement.src.Inventory.Domain
             }
         }
 
+        // Required by EF Core
         public InventoryItem() { }
     }
 }

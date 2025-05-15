@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace SCM.Inventory.Controllers
+namespace SCM.Order.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,20 +1,16 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.add(builder.Configuration);
+var useOcelot = builder.Configuration["GatewayType"] == "Ocelot";
+if (useOcelot)
+{
+    //builder.Services.AddOcelot(builder.Configuration);
+}
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (useOcelot) 
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    //await app.UseOcelot();
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
 
 app.Run();
